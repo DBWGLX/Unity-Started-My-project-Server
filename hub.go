@@ -34,9 +34,14 @@ func broadcast(msg ServerMessage, excludeID string) {
 		if id == excludeID {
 			continue
 		}
+
 		p.Mu.Lock()
+		log.Printf("start write to %s", id)
+
 		err := p.Conn.WriteMessage(websocket.TextMessage, data)
+		log.Printf("end write to %s, err=%v", id, err)
 		p.Mu.Unlock()
+
 		if err != nil {
 			// 写失败说明连接已断，留给 ReadMessage 的下次循环触发 defer 清理
 			log.Printf("write to %s failed: %v", id, err)

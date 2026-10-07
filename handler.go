@@ -22,8 +22,10 @@ func handleConnection(w http.ResponseWriter, r *http.Request) {
 		log.Printf("upgrade error: %v", err)
 		return
 	}
+	// 获取客户端IP+端口
+	clientAddr := conn.RemoteAddr().String()
 
-	// 2.自己信息
+	// 2.个人信息
 	player := &Player{
 		ID:   generateID(),
 		Conn: conn,
@@ -48,7 +50,7 @@ func handleConnection(w http.ResponseWriter, r *http.Request) {
 		}
 
 		// 测试阶段：打印原始报文
-		log.Printf("recv raw: %s", raw)
+		log.Printf("recv raw | addr=%s, raw=%s", clientAddr, raw)
 
 		var msg ClientMessage
 		if err := json.Unmarshal(raw, &msg); err != nil {
