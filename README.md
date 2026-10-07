@@ -16,6 +16,11 @@ hub 响应
 model 存玩家状态
 
 
+<img width="3840" height="1080" alt="image" src="https://github.com/user-attachments/assets/ae62785c-b152-4044-aaed-a75a0e55beaa" />
+
+
 # 构建
 go run .
 go build -o server && ./server
+
+
